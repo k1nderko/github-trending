@@ -3,10 +3,10 @@ import axios from 'axios';
 const getTrendingRepositories = async () => {
   const url = 'https://api.github.com/search/repositories';
   const params = {
-    q: 'stars:>=10000', // Пример фильтрации по количеству звезд
+    q: 'stars:>=10000',
     sort: 'stars',
     order: 'desc',
-    per_page: 5, // Количество репозиториев для загрузки
+    per_page: 10,
   };
   try {
     const response = await axios.get(url, {
@@ -17,7 +17,7 @@ const getTrendingRepositories = async () => {
     });
     return response.data.items;
   } catch (error) {
-    console.error('Error fetching trending repositories:', error);
+    console.error('Error fetching trending repositories:', error.response?.data || error.message);
     throw error;
   }
 };
